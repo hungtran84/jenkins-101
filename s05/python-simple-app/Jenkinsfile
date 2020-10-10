@@ -11,7 +11,7 @@ pipeline {
 
         stage('run') {
             steps {
-                sh 'python s05/python-simple-app/app.py'
+                sh 'python3 s05/python-simple-app/app.py'
             }
         }
     }
