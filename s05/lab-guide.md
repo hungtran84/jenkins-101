@@ -15,3 +15,18 @@ curl localhost:8888
 ```
 
 ### Automate with Jenkins pipeline
+- Install Docker plugins
+
+- Enable Docker service on master
+```bash
+systemctl enable docker
+systemctl start docker
+```
+
+- Grant Docker socket permission to Jenkins user
+```bash
+usermod -a -G docker jenkins
+systemctl restart jenkins
+```
+
+### Create Pipeline job for testing Nodejs
