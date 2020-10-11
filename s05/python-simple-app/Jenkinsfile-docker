@@ -1,0 +1,21 @@
+pipeline {
+    agent {
+        docker { 
+            image 'python:3-alpine' 
+            args '-u root'
+            }
+    }
+    stages {
+        stage('build') {
+            steps {
+                sh 'pip3 install -r s05/python-simple-app/requirements.txt'
+            }
+        }
+
+        stage('run') {
+            steps {
+                sh 'python3 s05/python-simple-app/app.py &'
+            }
+        }
+    }
+}
