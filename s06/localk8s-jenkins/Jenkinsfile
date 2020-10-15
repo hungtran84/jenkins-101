@@ -1,17 +1,26 @@
-podTemplate(containers: [
-    containerTemplate(name: 'maven', image: 'maven:3.3.9-jdk-8-alpine', ttyEnabled: true, command: 'cat'),
-    containerTemplate(name: 'golang', image: 'golang:1.8.0', ttyEnabled: true, command: 'cat'),
-    containerTemplate(name: 'python', image: 'python:3-alpine', ttyEnabled: true, command: 'cat')
-  ]) {
-
-    node(POD_LABEL) {
-        stage('Python Test') {
-            container('python') {
-                stage('Python version') {
-                    sh 'python3 -V'
-                }
+pipeline {
+  agent {
+    kubernetes {
+      defaultContainer 'python'
+      yaml """
+        apiVersion: v1
+        kind: Pod
+        spec:
+          containers:
+            - name: 'python'
+              image: 'python:3-alpine'
+              command:
+                - cat
+              tty: true
+          """
+    }
+  }
+  
+    stages {
+        stage('version') {
+            steps {
+                sh 'python -V'
             }
         }
-
     }
 }
