@@ -6,7 +6,7 @@ podTemplate(containers: [
 
     node(POD_LABEL) {
         stage('Python Test') {
-            container('maven') {
+            container('python') {
                 stage('Python version') {
                     sh 'python3 -V'
                 }
