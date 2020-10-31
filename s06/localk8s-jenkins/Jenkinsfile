@@ -9,9 +9,18 @@ pipeline {
   }
   
     stages {
-        stage('version') {
+        stage('Python runner testing') {
             steps {
                 sh 'python -V'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+              container('docker') {  
+                sh "docker build -t kanchimo/python-simple-app:$BUILD_NUMBER ."   
+                // sh "docker push kanchimo/python-simple-app:$BUILD_NUMBER"
+              }
             }
         }
     }
