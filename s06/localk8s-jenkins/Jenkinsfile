@@ -18,8 +18,9 @@ pipeline {
         stage('Build Docker Image') {
             steps {
               container('docker') {  
-                sh "docker build -t kanchimo/python-simple-app:$BUILD_NUMBER ."   
-                // sh "docker push kanchimo/python-simple-app:$BUILD_NUMBER"
+                sh "docker build -t kanchimo/python-simple-app:$BUILD_NUMBER ."
+                sh "docker login -u kanchimo -p credentials('dockerhub_pw')"
+                sh "docker push kanchimo/python-simple-app:$BUILD_NUMBER"
               }
             }
         }
